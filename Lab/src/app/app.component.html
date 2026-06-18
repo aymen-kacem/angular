@@ -1,0 +1,4 @@
+<app-template *ngIf="!b; else loginLayout"></app-template>
+<ng-template #loginLayout>
+  <router-outlet></router-outlet>
+</ng-template>

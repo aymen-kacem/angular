@@ -1,0 +1,65 @@
+<div class="dashboard-container" *ngIf="!loading">
+  <div class="header-section">
+    <h1>Bonjour, {{ currentUser?.fullName }}</h1>
+    <p>Tableau de bord Enseignant - Vos événements et participants</p>
+  </div>
+
+  <div class="stats-overview">
+    <mat-card class="stat-card">
+      <mat-icon class="stat-icon">event</mat-icon>
+      <div class="stat-details">
+        <p class="stat-label">Mes Événements Créés</p>
+        <h2 class="stat-value">{{ nbMyEvents }}</h2>
+      </div>
+    </mat-card>
+  </div>
+
+  <div class="layout-grid">
+    <mat-card class="chart-card">
+      <mat-card-header>
+        <mat-card-title>Nombre de Participants par Événement</mat-card-title>
+      </mat-card-header>
+      <mat-card-content class="chart-content">
+        <div class="chart-wrapper" *ngIf="eventLabels.length > 0">
+          <canvas baseChart 
+                  [type]="'bar'" 
+                  [datasets]="eventDatasets" 
+                  [labels]="eventLabels" 
+                  [options]="chartOptions">
+          </canvas>
+        </div>
+        <div class="chart-empty" *ngIf="eventLabels.length === 0">
+          <mat-icon class="empty-icon-box">bar_chart</mat-icon>
+          <p>Créez des événements pour visualiser la participation.</p>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="upcoming-card">
+      <mat-card-header>
+        <mat-card-title>Événements à Venir</mat-card-title>
+      </mat-card-header>
+      <mat-card-content class="upcoming-content">
+        <div class="empty-list" *ngIf="upcomingEvents.length === 0">
+          <mat-icon class="empty-icon-box">event_note</mat-icon>
+          <p>Aucun événement à venir prévu.</p>
+        </div>
+
+        <mat-list class="upcoming-list" *ngIf="upcomingEvents.length > 0">
+          <mat-list-item *ngFor="let event of upcomingEvents" class="upcoming-item">
+            <div class="item-icon-cell">
+              <mat-icon color="primary" class="upcoming-item-icon">event</mat-icon>
+            </div>
+            <div class="item-text-cell">
+              <div class="upcoming-title" [routerLink]="['/events', event.id]">{{ event.title }}</div>
+              <div class="upcoming-meta">Le {{ event.date | date:'dd/MM/yyyy' }} à {{ event.startTime }} - Lieu: {{ event.location }}</div>
+              <div class="upcoming-capacity">Capacité : {{ event.capacity }} participants</div>
+            </div>
+          </mat-list-item>
+        </mat-list>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+
+<app-loading-spinner *ngIf="loading" message="Génération de vos statistiques..."></app-loading-spinner>

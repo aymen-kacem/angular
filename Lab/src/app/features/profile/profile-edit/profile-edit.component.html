@@ -1,0 +1,44 @@
+<div class="page-container" *ngIf="currentUser && form">
+  <button mat-button class="btn-back" routerLink="/profile">
+    <mat-icon>arrow_back</mat-icon> Annuler
+  </button>
+
+  <div class="edit-layout">
+    <mat-card class="edit-card">
+      <mat-card-header>
+        <mat-card-title class="card-title">Modifier mes informations</mat-card-title>
+      </mat-card-header>
+      
+      <form [formGroup]="form" (ngSubmit)="onSubmit()" class="profile-edit-form">
+        <div class="form-content">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Nom Complet</mat-label>
+            <input matInput formControlName="fullName" placeholder="Ex: Karim Trabelsi">
+            <mat-icon matPrefix class="form-icon">person</mat-icon>
+            <mat-error *ngIf="form.get('fullName')?.hasError('required')">Le nom complet est requis.</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width read-only-field">
+            <mat-label>Adresse Email (non modifiable)</mat-label>
+            <input matInput [value]="currentUser.email" readonly>
+            <mat-icon matPrefix class="form-icon">email</mat-icon>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>URL de l'avatar</mat-label>
+            <input matInput formControlName="avatarUrl" placeholder="Ex: https://image.link/avatar.jpg">
+            <mat-icon matPrefix class="form-icon">photo_camera</mat-icon>
+          </mat-form-field>
+        </div>
+
+        <mat-card-actions class="form-actions">
+          <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid || loading" class="btn-submit">
+            <span *ngIf="!loading">Enregistrer les modifications</span>
+            <mat-progress-spinner diameter="20" mode="indeterminate" *ngIf="loading" class="spinner-btn"></mat-progress-spinner>
+          </button>
+        </mat-card-actions>
+      </form>
+
+    </mat-card>
+  </div>
+</div>

@@ -1,0 +1,100 @@
+<div class="page-container">
+  <div class="header-section">
+    <div class="title-container">
+      <h1>{{ currentUser?.role === 'teacher' ? 'Mes Événements Créés' : 'Mes Événements Rejoints' }}</h1>
+      <p>{{ currentUser?.role === 'teacher' ? 'Gérez vos propres ateliers et séminaires' : 'Retrouvez tous les événements auxquels vous êtes inscrit' }}</p>
+    </div>
+  </div>
+
+  <app-loading-spinner *ngIf="loading" message="Chargement de vos événements..."></app-loading-spinner>
+
+  <!-- Student View -->
+  <ng-container *ngIf="!loading && currentUser?.role === 'student'">
+    <div class="empty-state" *ngIf="studentRegistrations.length === 0">
+      <mat-icon class="empty-icon">event_busy</mat-icon>
+      <h3>Vous n'avez rejoint aucun événement</h3>
+      <p>Parcourez la liste complète des événements pour vous inscrire.</p>
+      <button mat-raised-button color="primary" routerLink="/events" class="btn-browse-events">Voir les événements</button>
+    </div>
+
+    <div class="events-grid" *ngIf="studentRegistrations.length > 0">
+      <mat-card class="event-card" *ngFor="let reg of studentRegistrations">
+        <div class="event-image-container" *ngIf="reg.event">
+          <img [src]="reg.event.imageUrl || 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600'" alt="Image événement" class="event-image">
+          <span class="category-badge">{{ reg.event.category }}</span>
+        </div>
+
+        <mat-card-content class="event-content" *ngIf="reg.event">
+          <h2 class="event-title" [routerLink]="['/events', reg.event.id]">{{ reg.event.title }}</h2>
+          <div class="status-indicator">
+            Statut : <span class="status-badge" [ngClass]="reg.status">{{ reg.status === 'confirmed' ? 'Confirmé' : reg.status === 'pending' ? 'En attente' : 'Annulé' }}</span>
+          </div>
+          
+          <div class="event-meta-info">
+            <div class="meta-item">
+              <mat-icon class="meta-icon">calendar_today</mat-icon>
+              <span>Le {{ reg.event.date | date:'dd/MM/yyyy' }}</span>
+            </div>
+            <div class="meta-item">
+              <mat-icon class="meta-icon">place</mat-icon>
+              <span>{{ reg.event.location }}</span>
+            </div>
+          </div>
+        </mat-card-content>
+
+        <mat-card-actions class="event-actions">
+          <button mat-button color="primary" [routerLink]="['/events', reg.eventId]">Détails</button>
+          <span class="spacer"></span>
+          <button mat-raised-button color="warn" (click)="cancelRegistration(reg.id)" class="btn-quit">
+            Quitter
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </ng-container>
+
+  <!-- Teacher View -->
+  <ng-container *ngIf="!loading && currentUser?.role === 'teacher'">
+    <div class="empty-state" *ngIf="teacherEvents.length === 0">
+      <mat-icon class="empty-icon">note_add</mat-icon>
+      <h3>Vous n'avez créé aucun événement</h3>
+      <p>Commencez à proposer vos ateliers et cours dès maintenant.</p>
+    </div>
+
+    <div class="events-grid" *ngIf="teacherEvents.length > 0">
+      <mat-card class="event-card" *ngFor="let event of teacherEvents">
+        <div class="event-image-container">
+          <img [src]="event.imageUrl || 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600'" alt="Image de l'événement" class="event-image">
+          <span class="category-badge">{{ event.category }}</span>
+        </div>
+
+        <mat-card-content class="event-content">
+          <h2 class="event-title" [routerLink]="['/events', event.id]">{{ event.title }}</h2>
+          <p class="event-desc">{{ event.description | slice:0:100 }}{{ event.description.length > 100 ? '...' : '' }}</p>
+
+          <div class="event-meta-info">
+            <div class="meta-item">
+              <mat-icon class="meta-icon">calendar_today</mat-icon>
+              <span>Le {{ event.date | date:'dd/MM/yyyy' }}</span>
+            </div>
+            <div class="meta-item">
+              <mat-icon class="meta-icon">place</mat-icon>
+              <span>{{ event.location }}</span>
+            </div>
+          </div>
+        </mat-card-content>
+
+        <mat-card-actions class="event-actions">
+          <button mat-button color="primary" [routerLink]="['/events', event.id]">Détails</button>
+          <span class="spacer"></span>
+          <button mat-icon-button color="primary" (click)="openEditDialog(event)" matTooltip="Modifier" class="btn-icon">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="deleteEvent(event.id)" matTooltip="Supprimer" class="btn-icon">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </ng-container>
+</div>

@@ -1,0 +1,92 @@
+<h2 mat-dialog-title class="dialog-title">
+  <mat-icon color="primary">{{ isEditMode ? 'edit' : 'add_circle' }}</mat-icon>
+  <span>{{ isEditMode ? "Modifier l'Événement" : "Créer un Événement" }}</span>
+</h2>
+
+<form [formGroup]="form" (ngSubmit)="save()" class="event-form-container">
+  <mat-dialog-content class="dialog-content">
+    <div class="form-row">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Titre de l'événement</mat-label>
+        <input matInput formControlName="title" placeholder="Ex: Atelier Angular">
+        <mat-error *ngIf="form.get('title')?.hasError('required')">Le titre est requis.</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form-row flex-row">
+      <mat-form-field appearance="outline" class="flex-item">
+        <mat-label>Catégorie</mat-label>
+        <mat-select formControlName="category">
+          <mat-option *ngFor="let cat of categories" [value]="cat">{{ cat }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="flex-item">
+        <mat-label>Date</mat-label>
+        <input matInput type="date" formControlName="date">
+        <mat-error *ngIf="form.get('date')?.hasError('required')">La date est requise.</mat-error>
+        <mat-error *ngIf="form.get('date')?.hasError('pastDate')">La date doit être aujourd'hui ou dans le futur.</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form-row flex-row">
+      <mat-form-field appearance="outline" class="flex-item">
+        <mat-label>Heure de Début</mat-label>
+        <input matInput type="time" formControlName="startTime">
+        <mat-error *ngIf="form.get('startTime')?.hasError('required')">L'heure de début est requise.</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="flex-item">
+        <mat-label>Heure de Fin</mat-label>
+        <input matInput type="time" formControlName="endTime">
+        <mat-error *ngIf="form.get('endTime')?.hasError('required')">L'heure de fin est requise.</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form-row flex-row">
+      <mat-form-field appearance="outline" class="flex-item">
+        <mat-label>Lieu</mat-label>
+        <input matInput formControlName="location" placeholder="Ex: Salle A ou En ligne">
+        <mat-error *ngIf="form.get('location')?.hasError('required')">Le lieu est requis.</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="flex-item">
+        <mat-label>Capacité maximale</mat-label>
+        <input matInput type="number" formControlName="capacity" min="1">
+        <mat-error *ngIf="form.get('capacity')?.hasError('required')">La capacité est requise.</mat-error>
+        <mat-error *ngIf="form.get('capacity')?.hasError('min')">La capacité doit être supérieure à 0.</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form-row">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>URL de l'image (optionnelle)</mat-label>
+        <input matInput formControlName="imageUrl" placeholder="Ex: https://image.link/pic.jpg">
+      </mat-form-field>
+    </div>
+
+    <div class="form-row" *ngIf="currentUser?.role === 'admin'">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Enseignant Responsable</mat-label>
+        <mat-select formControlName="teacherId">
+          <mat-option *ngFor="let t of teachers" [value]="t.id">{{ t.fullName }}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="form.get('teacherId')?.hasError('required')">Un enseignant responsable doit être désigné.</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form-row">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Description</mat-label>
+        <textarea matInput formControlName="description" rows="3" placeholder="Décrivez l'événement..."></textarea>
+      </mat-form-field>
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end" class="dialog-actions">
+    <button mat-button type="button" (click)="close()" class="btn-cancel">Annuler</button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid" class="btn-save">
+      Sauvegarder
+    </button>
+  </mat-dialog-actions>
+</form>

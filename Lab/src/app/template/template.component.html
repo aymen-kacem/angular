@@ -1,0 +1,19 @@
+<mat-sidenav-container class="sidenav-container">
+  <!-- Sidebar -->
+  <mat-sidenav #drawer 
+               fixedInViewport="true" 
+               [mode]="'over'" 
+               [opened]="sidebarOpen" 
+               (openedChange)="onSidebarOpenedChange($event)"
+               style="width: 240px;">
+    <app-sidebar></app-sidebar>
+  </mat-sidenav>
+
+  <!-- Content -->
+  <mat-sidenav-content class="sidenav-content">
+    <app-navbar></app-navbar>
+    <main class="main-content-layout">
+      <router-outlet></router-outlet>
+    </main>
+  </mat-sidenav-content>
+</mat-sidenav-container>

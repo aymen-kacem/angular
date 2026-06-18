@@ -1,0 +1,38 @@
+<div class="sidebar-container" *ngIf="currentUser$ | async as user">
+  <div class="sidebar-header">
+    <mat-icon class="header-icon">school</mat-icon>
+    <span class="header-title">E-Platform</span>
+  </div>
+  <mat-divider></mat-divider>
+  <mat-nav-list class="sidebar-nav">
+    <a mat-list-item routerLink="/dashboard" routerLinkActive="active-link" (click)="closeSidebar()" class="nav-item">
+      <mat-icon class="nav-icon">dashboard</mat-icon>
+      <span class="nav-label">Tableau de Bord</span>
+    </a>
+
+    <a mat-list-item routerLink="/events" routerLinkActive="active-link" (click)="closeSidebar()" class="nav-item">
+      <mat-icon class="nav-icon">event_note</mat-icon>
+      <span class="nav-label">Événements</span>
+    </a>
+
+    <a mat-list-item *ngIf="user.role === 'admin'" routerLink="/users" routerLinkActive="active-link" (click)="closeSidebar()" class="nav-item">
+      <mat-icon class="nav-icon">supervised_user_circle</mat-icon>
+      <span class="nav-label">Utilisateurs</span>
+    </a>
+
+    <a mat-list-item *ngIf="user.role === 'admin'" routerLink="/categories" routerLinkActive="active-link" (click)="closeSidebar()" class="nav-item">
+      <mat-icon class="nav-icon">category</mat-icon>
+      <span class="nav-label">Catégories</span>
+    </a>
+
+    <a mat-list-item routerLink="/courses" routerLinkActive="active-link" (click)="closeSidebar()" class="nav-item">
+      <mat-icon class="nav-icon">library_books</mat-icon>
+      <span class="nav-label">Bibliothèque</span>
+    </a>
+
+    <a mat-list-item routerLink="/profile" routerLinkActive="active-link" (click)="closeSidebar()" class="nav-item">
+      <mat-icon class="nav-icon">person</mat-icon>
+      <span class="nav-label">Mon Profil</span>
+    </a>
+  </mat-nav-list>
+</div>

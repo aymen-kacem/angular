@@ -1,0 +1,134 @@
+.page-container {
+  padding: 32px;
+  width: 100%;
+  box-sizing: border-box;
+  animation: fadeIn 0.4s ease-out;
+}
+.header-section {
+  margin-bottom: 24px;
+}
+.header-section h1 {
+  color: #1a237e;
+  margin: 0 0 8px 0;
+  font-size: 28px;
+  font-weight: 700;
+}
+.form-card {
+  padding: 32px;
+  border-radius: 12px;
+}
+.form-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.full-width {
+  flex: 1 1 100%;
+}
+.half-width {
+  flex: 1 1 calc(50% - 8px);
+}
+.divider {
+  margin: 32px 0;
+}
+.resources-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+.resources-header h2 {
+  margin: 0;
+  color: #333;
+  font-size: 20px;
+}
+.empty-resources {
+  text-align: center;
+  padding: 40px 20px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border: 1px dashed #ccc;
+  color: #666;
+}
+.empty-resources mat-icon {
+  font-size: 40px;
+  height: 40px;
+  width: 40px;
+  color: #aaa;
+  margin-bottom: 12px;
+}
+.resource-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: white;
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  border-left: 4px solid #1a237e;
+}
+.resource-count {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1a237e;
+  background: #e8eaf6;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+.resource-fields {
+  display: flex;
+  flex: 1;
+  gap: 16px;
+}
+.resource-fields mat-form-field {
+  margin-bottom: -1.25em; /* remove padding below */
+}
+.url-field {
+  flex: 2;
+}
+.upload-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.upload-toggle {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 8px;
+}
+.file-upload-container {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 8px 0;
+}
+.file-name {
+  font-size: 14px;
+  color: #1a237e;
+  font-weight: 500;
+  max-width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+  margin-top: 32px;
+}
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+@media (max-width: 768px) {
+  .resource-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .resource-fields {
+    flex-direction: column;
+  }
+}

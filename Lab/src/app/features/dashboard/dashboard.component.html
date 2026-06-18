@@ -1,0 +1,6 @@
+<div [ngSwitch]="role" class="dashboard-wrapper">
+  <app-admin-dashboard *ngSwitchCase="'admin'"></app-admin-dashboard>
+  <app-teacher-dashboard *ngSwitchCase="'teacher'"></app-teacher-dashboard>
+  <app-student-dashboard *ngSwitchCase="'student'"></app-student-dashboard>
+  <app-loading-spinner *ngSwitchDefault message="Chargement de votre tableau de bord..."></app-loading-spinner>
+</div>

@@ -1,0 +1,51 @@
+<h2 mat-dialog-title class="dialog-title">
+  <mat-icon color="primary">{{ isEditMode ? 'edit' : 'person_add' }}</mat-icon>
+  <span>{{ isEditMode ? "Modifier l'Utilisateur" : "Ajouter un Utilisateur" }}</span>
+</h2>
+
+<form [formGroup]="form" (ngSubmit)="save()" class="user-form-container">
+  <mat-dialog-content class="dialog-content">
+    <div class="form-row">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Nom Complet</mat-label>
+        <input matInput formControlName="fullName" placeholder="Ex: Karim Trabelsi">
+        <mat-error *ngIf="form.get('fullName')?.hasError('required')">Le nom complet est requis.</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form-row">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Adresse Email</mat-label>
+        <input matInput type="email" formControlName="email" placeholder="exemple@mail.com" [readonly]="isEditMode && form.get('email')?.value === 'aymenkacem@gmail.com'">
+        <mat-error *ngIf="form.get('email')?.hasError('required')">L'adresse email est requise.</mat-error>
+        <mat-error *ngIf="form.get('email')?.hasError('email')">L'adresse email doit être valide.</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form-row">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Rôle</mat-label>
+        <mat-select formControlName="role" [disabled]="isEditMode && data?.email === 'aymenkacem@gmail.com'">
+          <mat-option value="student">Étudiant</mat-option>
+          <mat-option value="teacher">Enseignant</mat-option>
+          <mat-option value="admin">Administrateur</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+
+    <div class="form-row">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>URL de l'avatar (optionnelle)</mat-label>
+        <input matInput formControlName="avatarUrl" placeholder="Ex: https://image.link/avatar.jpg">
+      </mat-form-field>
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end" class="dialog-actions">
+    <button mat-button type="button" (click)="close()" class="btn-cancel">Annuler</button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid" class="btn-save">
+      Sauvegarder
+    </button>
+  </mat-dialog-actions>
+</form>

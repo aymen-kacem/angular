@@ -1,0 +1,42 @@
+<mat-toolbar color="primary" class="navbar-toolbar">
+  <button type="button" mat-icon-button (click)="toggleSidebar()" aria-label="Menu" class="menu-toggle-btn">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span class="brand-title" routerLink="/dashboard">
+    <mat-icon class="brand-icon">school</mat-icon>
+    <span>ÉduÉvénements</span>
+  </span>
+
+  <span class="flex-spacer"></span>
+
+  <div class="user-profile-menu" *ngIf="currentUser$ | async as user">
+    <button mat-button [matMenuTriggerFor]="userMenu" class="user-menu-btn">
+      <div class="user-info-container">
+        <div class="avatar-placeholder" *ngIf="!user.avatarUrl">
+          {{ user.fullName.charAt(0).toUpperCase() }}
+        </div>
+        <img *ngIf="user.avatarUrl" [src]="user.avatarUrl" alt="Avatar" class="avatar-img">
+        <div class="user-meta" fxHide fxShow.gt-sm>
+          <span class="user-name">{{ user.fullName }}</span>
+          <span class="user-role-badge" [ngClass]="user.role">{{ getRoleLabel(user.role) }}</span>
+        </div>
+        <mat-icon class="dropdown-arrow-icon">keyboard_arrow_down</mat-icon>
+      </div>
+    </button>
+    <mat-menu #userMenu="matMenu" xPosition="before" class="premium-menu">
+      <div class="menu-header">
+        <p class="menu-name">{{ user.fullName }}</p>
+        <p class="menu-email">{{ user.email }}</p>
+      </div>
+      <mat-divider></mat-divider>
+      <button mat-menu-item routerLink="/profile">
+        <mat-icon>person</mat-icon>
+        <span>Mon Profil</span>
+      </button>
+      <button mat-menu-item (click)="logout()">
+        <mat-icon>exit_to_app</mat-icon>
+        <span>Déconnexion</span>
+      </button>
+    </mat-menu>
+  </div>
+</mat-toolbar>

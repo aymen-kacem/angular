@@ -1,0 +1,113 @@
+.page-container {
+  padding: 32px;
+  width: 100%;
+  box-sizing: border-box;
+}
+.header-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.title-container h1 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #1a237e;
+  margin: 0 0 8px 0;
+}
+.title-container p {
+  font-size: 1rem;
+  color: #64748b;
+  margin: 0;
+}
+.btn-create {
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+  height: 44px;
+}
+.filter-section {
+  display: flex;
+  margin-bottom: 24px;
+}
+.search-field {
+  flex: 1 1 300px;
+}
+.table-container {
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05), 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+table {
+  width: 100%;
+}
+th {
+  background-color: #f8fafc;
+  color: #1e293b;
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 16px !important;
+}
+td {
+  padding: 12px 16px !important;
+  font-size: 0.9rem;
+  color: #334155;
+  border-bottom: 1px solid #f1f5f9;
+}
+.table-row:hover {
+  background-color: #f8fafc;
+}
+.avatar-placeholder {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #1a237e;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+.avatar-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.user-name-cell {
+  font-weight: 600;
+  color: #1e293b;
+}
+.role-badge {
+  font-size: 0.75rem;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-weight: 600;
+}
+.role-badge.admin {
+  background-color: #fee2e2;
+  color: #991b1b;
+}
+.role-badge.teacher {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+.role-badge.student {
+  background-color: #dbeafe;
+  color: #1e40af;
+}
+.empty-table-cell {
+  text-align: center;
+  padding: 32px !important;
+  color: #64748b;
+  font-style: italic;
+}
+@media (max-width: 600px) {
+  .header-section {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}

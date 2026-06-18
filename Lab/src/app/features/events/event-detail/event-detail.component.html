@@ -1,0 +1,125 @@
+<div class="page-container" *ngIf="!loading && event">
+  <button mat-button class="btn-back" routerLink="/events">
+    <mat-icon>arrow_back</mat-icon> Retour aux événements
+  </button>
+
+  <div class="detail-layout">
+    <div class="detail-card-container">
+      <mat-card class="detail-card">
+        <div class="image-container">
+          <img [src]="event.imageUrl || 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600'" alt="Bannière événement" class="banner-img">
+          <span class="category-badge">{{ event.category }}</span>
+        </div>
+
+        <mat-card-content class="content-section">
+          <h1 class="event-title">{{ event.title }}</h1>
+          <p class="event-desc">{{ event.description || 'Aucune description disponible.' }}</p>
+
+          <mat-divider class="divider-spacing"></mat-divider>
+
+          <h3 class="section-title">Informations Pratiques</h3>
+          <div class="info-grid">
+            <div class="info-item">
+              <mat-icon color="primary" class="info-icon">calendar_today</mat-icon>
+              <div>
+                <p class="info-label">Date</p>
+                <p class="info-value">Le {{ event.date | date:'dd/MM/yyyy' }}</p>
+              </div>
+            </div>
+
+            <div class="info-item">
+              <mat-icon color="primary" class="info-icon">access_time</mat-icon>
+              <div>
+                <p class="info-label">Horaires</p>
+                <p class="info-value">{{ event.startTime }} - {{ event.endTime }}</p>
+              </div>
+            </div>
+
+            <div class="info-item">
+              <mat-icon color="primary" class="info-icon">place</mat-icon>
+              <div>
+                <p class="info-label">Lieu</p>
+                <p class="info-value">{{ event.location }}</p>
+              </div>
+            </div>
+
+            <div class="info-item">
+              <mat-icon color="primary" class="info-icon">person</mat-icon>
+              <div>
+                <p class="info-label">Enseignant</p>
+                <p class="info-value">{{ teacherName }}</p>
+              </div>
+            </div>
+
+            <div class="info-item">
+              <mat-icon color="primary" class="info-icon">people</mat-icon>
+              <div>
+                <p class="info-label">Capacité</p>
+                <p class="info-value">{{ registrations.length }} / {{ event.capacity }} participants</p>
+              </div>
+            </div>
+          </div>
+        </mat-card-content>
+
+        <mat-card-actions class="actions-section" *ngIf="currentUser?.role === 'student'">
+          <button mat-raised-button
+                  [color]="studentRegistrationId ? 'warn' : 'primary'"
+                  (click)="toggleRegistration()"
+                  class="btn-action-reg">
+            {{ studentRegistrationId ? 'Se désinscrire' : "S'inscrire à l'événement" }}
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+
+    <div class="participants-container" *ngIf="canViewParticipants()">
+      <mat-card class="participants-card">
+        <mat-card-content>
+          <h2 class="participants-title">Participants ({{ registrations.length }})</h2>
+          
+          <div class="participants-empty" *ngIf="registrations.length === 0">
+            <mat-icon class="empty-peop-icon">people_outline</mat-icon>
+            <p>Aucun participant inscrit pour le moment.</p>
+          </div>
+
+          <mat-list class="participants-list" *ngIf="registrations.length > 0">
+            <mat-list-item *ngFor="let reg of registrations" class="participant-item">
+              <div class="avatar-cell">
+                <div class="avatar-placeholder">
+                  {{ reg.user?.fullName?.charAt(0)?.toUpperCase() }}
+                </div>
+              </div>
+              <div class="info-cell">
+                <div class="participant-name">{{ reg.user?.fullName }}</div>
+                <div class="participant-email">{{ reg.user?.email }}</div>
+                <div class="participant-date">Inscrit le {{ reg.registeredAt | date:'dd/MM/yyyy' }}</div>
+              </div>
+              <div class="status-cell">
+                <span class="status-badge" [ngClass]="reg.status">
+                  {{ reg.status === 'confirmed' ? 'Confirmé' : reg.status === 'pending' ? 'En attente' : 'Annulé' }}
+                </span>
+                <button mat-icon-button [matMenuTriggerFor]="statusMenu" class="btn-status-menu">
+                  <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #statusMenu="matMenu">
+                  <button mat-menu-item (click)="updateRegistrationStatus(reg, 'confirmed')">
+                    <mat-icon color="primary">check_circle</mat-icon> Confirmer
+                  </button>
+                  <button mat-menu-item (click)="updateRegistrationStatus(reg, 'pending')">
+                    <mat-icon color="accent">hourglass_empty</mat-icon> En attente
+                  </button>
+                  <button mat-menu-item (click)="updateRegistrationStatus(reg, 'cancelled')">
+                    <mat-icon color="warn">cancel</mat-icon> Annuler
+                  </button>
+                </mat-menu>
+
+              </div>
+            </mat-list-item>
+          </mat-list>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>
+
+<app-loading-spinner *ngIf="loading" message="Chargement des détails de l'événement..."></app-loading-spinner>

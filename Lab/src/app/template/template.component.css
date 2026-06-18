@@ -1,0 +1,16 @@
+.sidenav-container {
+  height: 100vh;
+  width: 100vw;
+}
+.sidenav-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.main-content-layout {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0;
+  box-sizing: border-box;
+  background: #f5f7fa;
+}

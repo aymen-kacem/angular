@@ -1,0 +1,106 @@
+<div class="page-container">
+  <div class="header-section">
+    <h1>{{ isEditMode ? 'Modifier le Cours' : 'Créer un Nouveau Cours' }}</h1>
+    <p>Renseignez les détails du cours et ajoutez vos ressources (URL PDF, Drive, etc.)</p>
+  </div>
+
+  <mat-card class="form-card mat-elevation-z8">
+    <form [formGroup]="form" (ngSubmit)="save()">
+      <div class="form-grid">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Titre du cours</mat-label>
+          <input matInput formControlName="title" placeholder="Ex: Algèbre Linéaire Avancée">
+          <mat-error>Le titre est requis</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Description</mat-label>
+          <textarea matInput formControlName="description" rows="3" placeholder="Description du cours..."></textarea>
+          <mat-error>La description est requise</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="half-width">
+          <mat-label>Niveau / Année</mat-label>
+          <mat-select formControlName="level">
+            <mat-option *ngFor="let lvl of levels" [value]="lvl">{{ lvl }}</mat-option>
+          </mat-select>
+          <mat-error>Le niveau est requis</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="half-width">
+          <mat-label>Enseignants associés</mat-label>
+          <mat-select formControlName="teacherIds" multiple>
+            <mat-option *ngFor="let teacher of teachers" [value]="teacher.id">{{ teacher.fullName }}</mat-option>
+          </mat-select>
+          <mat-error>Au moins un enseignant est requis</mat-error>
+        </mat-form-field>
+      </div>
+
+      <mat-divider class="divider"></mat-divider>
+      
+      <div class="resources-section">
+        <div class="resources-header">
+          <h2>Ressources Documentaires</h2>
+          <button mat-stroked-button color="primary" type="button" (click)="addResource()">
+            <mat-icon>add_circle</mat-icon> Ajouter un Document
+          </button>
+        </div>
+
+        <div formArrayName="resources">
+          <div *ngIf="resources.controls.length === 0" class="empty-resources">
+            <mat-icon>folder_open</mat-icon>
+            <p>Aucun document ajouté pour le moment. Cliquez sur le bouton pour ajouter un PDF, un résumé, etc.</p>
+          </div>
+
+          <div *ngFor="let resForm of resources.controls; let i = index" [formGroupName]="i" class="resource-row mat-elevation-z2">
+            <div class="resource-count">{{ i + 1 }}</div>
+            <div class="resource-fields">
+              <mat-form-field appearance="outline">
+                <mat-label>Titre du document</mat-label>
+                <input matInput formControlName="title" placeholder="Ex: Chapitre 1">
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Type</mat-label>
+                <mat-select formControlName="type">
+                  <mat-option *ngFor="let t of resourceTypes" [value]="t.value">{{ t.label }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <div class="upload-section url-field">
+                <mat-radio-group formControlName="uploadType" class="upload-toggle">
+                  <mat-radio-button value="link">Lien externe</mat-radio-button>
+                  <mat-radio-button value="file">Fichier local</mat-radio-button>
+                </mat-radio-group>
+
+                <mat-form-field appearance="outline" *ngIf="resForm.get('uploadType')?.value === 'link'" class="full-width">
+                  <mat-label>Lien du fichier (URL)</mat-label>
+                  <input matInput formControlName="url" placeholder="https://...">
+                  <mat-icon matSuffix matTooltip="Lien externe (Drive, Dropbox, site web)">link</mat-icon>
+                </mat-form-field>
+
+                <div *ngIf="resForm.get('uploadType')?.value === 'file'" class="file-upload-container">
+                  <button mat-stroked-button color="primary" type="button" (click)="fileInput.click()">
+                    <mat-icon>upload_file</mat-icon> Choisir un fichier
+                  </button>
+                  <span class="file-name" *ngIf="resForm.get('fileName')?.value">{{ resForm.get('fileName')?.value }}</span>
+                  <input type="file" #fileInput (change)="onFileSelected($event, i)" style="display: none;" accept=".pdf,.doc,.docx,.ppt,.pptx">
+                </div>
+              </div>
+            </div>
+            <button mat-icon-button color="warn" type="button" (click)="removeResource(i)" matTooltip="Supprimer ce document">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button mat-button type="button" (click)="cancel()">Annuler</button>
+        <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
+          <mat-icon>save</mat-icon> {{ isEditMode ? 'Mettre à jour' : 'Enregistrer' }}
+        </button>
+      </div>
+    </form>
+  </mat-card>
+</div>

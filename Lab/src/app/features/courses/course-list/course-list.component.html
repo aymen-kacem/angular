@@ -1,0 +1,89 @@
+<div class="page-container">
+  <div class="header-section">
+    <div class="title-container">
+      <h1>Bibliothèque Numérique</h1>
+      <p>Accédez aux cours, chapitres PDF, exercices et corrections partagés par vos enseignants.</p>
+    </div>
+    <div class="action-container" *ngIf="currentUser?.role === 'admin' || currentUser?.role === 'teacher'">
+      <button mat-raised-button color="primary" routerLink="/courses/new" class="btn-create">
+        <mat-icon>add</mat-icon> Ajouter un Cours
+      </button>
+    </div>
+  </div>
+
+  <div class="filter-section">
+    <mat-form-field appearance="outline" class="search-field">
+      <mat-label>Rechercher un cours</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Ex: Algèbre linéaire..." #input>
+      <mat-icon matPrefix>search</mat-icon>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="filter-field">
+      <mat-label>Filtrer par niveau</mat-label>
+      <mat-select [(ngModel)]="selectedLevel" (selectionChange)="fetchCourses()">
+        <mat-option value="">Tous les niveaux</mat-option>
+        <mat-option *ngFor="let lvl of levels" [value]="lvl">{{ lvl }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <app-loading-spinner *ngIf="loading" message="Chargement des cours..."></app-loading-spinner>
+
+  <div class="table-container mat-elevation-z8" *ngIf="!loading">
+    <table mat-table [dataSource]="dataSource" matSort>
+      <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Titre du Cours </th>
+        <td mat-cell *matCellDef="let course" class="course-title-cell"> {{ course.title }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="level">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Niveau </th>
+        <td mat-cell *matCellDef="let course">
+          <mat-chip-set>
+            <mat-chip color="accent">{{ course.level }}</mat-chip>
+          </mat-chip-set>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="resourcesCount">
+        <th mat-header-cell *matHeaderCellDef> Fichiers </th>
+        <td mat-cell *matCellDef="let course">
+          <span class="resource-badge"><mat-icon inline>attach_file</mat-icon> {{ course.resources?.length || 0 }} document(s)</span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="createdAt">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Date d'ajout </th>
+        <td mat-cell *matCellDef="let course"> {{ course.createdAt | date:'dd/MM/yyyy' }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> Actions </th>
+        <td mat-cell *matCellDef="let course">
+          <button mat-icon-button color="primary" [routerLink]="['/courses', course.id]" matTooltip="Ouvrir le cours">
+            <mat-icon>menu_book</mat-icon>
+          </button>
+          <button mat-icon-button color="accent" *ngIf="canEdit(course)" [routerLink]="['/courses', course.id, 'edit']" matTooltip="Modifier">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" *ngIf="canEdit(course)" (click)="deleteCourse(course)" matTooltip="Supprimer">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="table-row"></tr>
+
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell empty-table-cell" colspan="5">
+          <div class="empty-state">
+            <mat-icon class="empty-icon">library_books</mat-icon>
+            <p>Aucun cours ne correspond à la recherche.</p>
+          </div>
+        </td>
+      </tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25]" aria-label="Sélectionner la page"></mat-paginator>
+  </div>
+</div>

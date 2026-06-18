@@ -1,0 +1,99 @@
+<div class="page-container">
+  <div class="header-section">
+    <div class="title-container">
+      <h1>Tous les Événements</h1>
+      <p>Découvrez et rejoignez des ateliers et séminaires éducatifs</p>
+    </div>
+    <div class="action-container" *ngIf="currentUser?.role === 'admin' || currentUser?.role === 'teacher'">
+      <button mat-raised-button color="primary" (click)="openCreateDialog()" class="btn-create">
+        <mat-icon>add</mat-icon> Créer un Événement
+      </button>
+    </div>
+  </div>
+
+  <div class="filter-section">
+    <mat-form-field appearance="outline" class="search-field">
+      <mat-label>Rechercher un événement</mat-label>
+      <input matInput [(ngModel)]="searchQuery" (input)="onSearchChange()" placeholder="Titre, description, lieu...">
+      <mat-icon matPrefix>search</mat-icon>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="filter-field">
+      <mat-label>Catégorie</mat-label>
+      <mat-select [(ngModel)]="selectedCategory" (selectionChange)="onCategoryChange()">
+        <mat-option value="">Toutes les catégories</mat-option>
+        <mat-option *ngFor="let cat of categories" [value]="cat">{{ cat }}</mat-option>
+      </mat-select>
+      <mat-icon matPrefix>category</mat-icon>
+    </mat-form-field>
+
+    <button mat-button color="warn" (click)="clearFilters()" *ngIf="searchQuery || selectedCategory" class="btn-clear">
+      <mat-icon>clear</mat-icon> Réinitialiser
+    </button>
+  </div>
+
+  <app-loading-spinner *ngIf="loading" message="Chargement des événements..."></app-loading-spinner>
+
+  <div class="empty-state" *ngIf="!loading && filteredEvents.length === 0">
+    <mat-icon class="empty-icon">event_busy</mat-icon>
+    <h3>Aucun événement trouvé</h3>
+    <p>Essayez de modifier vos critères de recherche.</p>
+  </div>
+
+  <div class="events-grid" *ngIf="!loading && filteredEvents.length > 0">
+    <mat-card class="event-card" *ngFor="let event of filteredEvents">
+      <div class="event-image-container">
+        <img [src]="event.imageUrl || 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600'" alt="Image de l'événement" class="event-image">
+        <span class="category-badge">{{ event.category }}</span>
+      </div>
+
+      <mat-card-content class="event-content">
+        <h2 class="event-title" [routerLink]="['/events', event.id]">{{ event.title }}</h2>
+        <p class="event-desc">{{ event.description | slice:0:100 }}{{ event.description.length > 100 ? '...' : '' }}</p>
+        
+        <div class="event-meta-info">
+          <div class="meta-item">
+            <mat-icon class="meta-icon">calendar_today</mat-icon>
+            <span>Le {{ event.date | date:'dd/MM/yyyy' }}</span>
+          </div>
+          <div class="meta-item">
+            <mat-icon class="meta-icon">access_time</mat-icon>
+            <span>{{ event.startTime }} - {{ event.endTime }}</span>
+          </div>
+          <div class="meta-item">
+            <mat-icon class="meta-icon">place</mat-icon>
+            <span>{{ event.location }}</span>
+          </div>
+          <div class="meta-item">
+            <mat-icon class="meta-icon">people</mat-icon>
+            <span>Capacité : {{ event.capacity }} participants</span>
+          </div>
+        </div>
+      </mat-card-content>
+
+      <mat-card-actions class="event-actions">
+        <button mat-button color="primary" [routerLink]="['/events', event.id]" class="btn-details">Détails</button>
+        
+        <span class="spacer"></span>
+
+        <ng-container *ngIf="currentUser?.role === 'student'">
+          <button mat-raised-button 
+                  [color]="isRegistered(event.id) ? 'warn' : 'primary'"
+                  (click)="toggleRegistration(event)"
+                  class="btn-registration">
+            {{ isRegistered(event.id) ? 'Quitter' : 'Rejoindre' }}
+          </button>
+        </ng-container>
+
+        <ng-container *ngIf="canModify(event)">
+          <button mat-icon-button color="primary" (click)="openEditDialog(event)" matTooltip="Modifier" class="btn-icon">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="deleteEvent(event.id)" matTooltip="Supprimer" class="btn-icon">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </ng-container>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>
