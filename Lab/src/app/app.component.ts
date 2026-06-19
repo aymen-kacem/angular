@@ -13,7 +13,9 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.router.events.subscribe(() => {
-      this.b = this.router.url.includes('/login');
+      // Auth pages (login / register) render without the app chrome.
+      const url = this.router.url;
+      this.b = url.includes('/login') || url.includes('/register');
     });
   }
 }

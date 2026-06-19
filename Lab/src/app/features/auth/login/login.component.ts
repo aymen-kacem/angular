@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { ToastService } from 'src/app/core/services/toast.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { filter, take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
@@ -38,8 +39,15 @@ export class LoginComponent {
 
     this.authService.login(email, password)
       .then(() => {
-        this.toastService.showSuccess('Connexion réussie !');
-        this.router.navigate(['/dashboard']);
+        // Wait until the profile is resolved before navigating. This avoids a
+        // cold-start race where the AuthGuard reads the transient `null` from
+        // Firebase's authState (before it settles) and bounces back to /login.
+        this.authService.currentUser$
+          .pipe(filter(user => !!user), take(1))
+          .subscribe(() => {
+            this.toastService.showSuccess('Connexion réussie !');
+            this.router.navigate(['/dashboard']);
+          });
       })
       .catch(error => {
         this.toastService.showError('Identifiants incorrects ou compte introuvable.');

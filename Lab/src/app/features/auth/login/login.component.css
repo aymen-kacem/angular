@@ -25,14 +25,14 @@
   font-size: 48px;
   height: 48px;
   width: 48px;
-  color: #1a237e;
+  color: var(--brand);
   margin-bottom: 12px;
 }
 .auth-header h1 {
   font-size: 1.8rem;
   font-weight: 700;
   margin: 0 0 8px 0;
-  color: #1a237e;
+  color: var(--brand);
 }
 .auth-header p {
   font-size: 0.9rem;
@@ -56,7 +56,7 @@
   border-radius: 8px !important;
   font-size: 1rem !important;
   font-weight: 600 !important;
-  background: linear-gradient(135deg, #1a237e 0%, #283593 100%) !important;
+  background: var(--brand-grad) !important;
   color: white !important;
   display: flex;
   align-items: center;
@@ -64,7 +64,7 @@
   margin-top: 16px;
   border: none;
   cursor: pointer;
-  box-shadow: 0 4px 6px rgba(26, 35, 126, 0.2);
+  box-shadow: 0 4px 6px rgba(var(--brand-rgb), 0.2);
 }
 .auth-submit-btn:disabled {
   background: #cbd5e1 !important;
@@ -81,7 +81,7 @@
   color: #334155;
 }
 .auth-link {
-  color: #1a237e;
+  color: var(--brand);
   font-weight: 600;
   text-decoration: none;
 }

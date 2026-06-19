@@ -11,6 +11,37 @@
     </div>
   </div>
 
+  <div class="kpi-strip" *ngIf="!loading">
+    <div class="kpi-card">
+      <mat-icon class="kpi-icon">groups</mat-icon>
+      <div class="kpi-text">
+        <span class="kpi-value">{{ totalUsers }}</span>
+        <span class="kpi-label">Utilisateurs au total</span>
+      </div>
+    </div>
+    <div class="kpi-card">
+      <mat-icon class="kpi-icon">admin_panel_settings</mat-icon>
+      <div class="kpi-text">
+        <span class="kpi-value">{{ nbAdmins }}</span>
+        <span class="kpi-label">Administrateurs</span>
+      </div>
+    </div>
+    <div class="kpi-card">
+      <mat-icon class="kpi-icon">school</mat-icon>
+      <div class="kpi-text">
+        <span class="kpi-value">{{ nbTeachers }}</span>
+        <span class="kpi-label">Enseignants</span>
+      </div>
+    </div>
+    <div class="kpi-card">
+      <mat-icon class="kpi-icon">person</mat-icon>
+      <div class="kpi-text">
+        <span class="kpi-value">{{ nbStudents }}</span>
+        <span class="kpi-label">Étudiants</span>
+      </div>
+    </div>
+  </div>
+
   <div class="filter-section">
     <mat-form-field appearance="outline" class="search-field">
       <mat-label>Rechercher un utilisateur</mat-label>

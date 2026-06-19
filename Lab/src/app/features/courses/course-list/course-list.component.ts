@@ -24,6 +24,10 @@ export class CourseListComponent implements OnInit {
   levels = ['1ère année Licence', '2ème année Licence', '3ème année Licence', '1ère année Master', '2ème année Master', 'Autre'];
   selectedLevel = '';
 
+  totalCourses = 0;
+  totalDocuments = 0;
+  totalLevels = 0;
+
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
@@ -46,8 +50,13 @@ export class CourseListComponent implements OnInit {
     this.loading = true;
     this.courseService.getAll().subscribe({
       next: (courses) => {
+        // KPIs reflect the full library (independent of the level filter)
+        this.totalCourses = courses.length;
+        this.totalDocuments = courses.reduce((acc, c) => acc + (c.resources ? c.resources.length : 0), 0);
+        this.totalLevels = new Set(courses.map(c => c.level).filter(Boolean)).size;
+
         let filteredCourses = courses;
-        
+
         if (this.selectedLevel) {
             filteredCourses = filteredCourses.filter(c => c.level === this.selectedLevel);
         }

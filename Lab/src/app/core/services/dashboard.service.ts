@@ -5,6 +5,7 @@ import { UserService } from './user.service';
 import { EventService } from './event.service';
 import { RegistrationService } from './registration.service';
 import { CategoryService } from './category.service';
+import { CourseService } from './course.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,21 +15,27 @@ export class DashboardService {
     private userService: UserService,
     private eventService: EventService,
     private registrationService: RegistrationService,
-    private categoryService: CategoryService
+    private categoryService: CategoryService,
+    private courseService: CourseService
   ) {}
 
   getAdminStats(): Observable<{
     rolesDistribution: { name: string; count: number }[];
     eventsByCategory: { category: string; count: number }[];
     eventsByTeacher: { teacher: string; count: number }[];
+    totalRegistrations: number;
+    registrationsByStatus: { status: string; count: number }[];
+    coursesByLevel: { level: string; count: number }[];
+    eventsByMonth: { month: string; count: number }[];
   }> {
     return forkJoin({
       users: this.userService.getAll(),
       events: this.eventService.getAll(),
       regs: this.registrationService.getAll(),
-      categories: this.categoryService.getAll()
+      categories: this.categoryService.getAll(),
+      courses: this.courseService.getAll()
     }).pipe(
-      map(({ users, events, regs, categories }) => {
+      map(({ users, events, regs, categories, courses }) => {
         const roles = ['admin', 'teacher', 'student'];
         const rolesDistribution = roles.map(role => ({
           name: role === 'admin' ? 'Administrateur' : role === 'teacher' ? 'Enseignant' : 'Étudiant',
@@ -67,7 +74,45 @@ export class DashboardService {
           count: teacherEventMap[name]
         }));
 
-        return { rolesDistribution, eventsByCategory, eventsByTeacher };
+        // Registrations by status
+        const totalRegistrations = regs.length;
+        const statusLabels: Record<string, string> = {
+          confirmed: 'Confirmées', pending: 'En attente', cancelled: 'Annulées'
+        };
+        const registrationsByStatus = ['confirmed', 'pending', 'cancelled'].map(s => ({
+          status: statusLabels[s],
+          count: regs.filter(r => r.status === s).length
+        }));
+
+        // Courses by level
+        const levelMap: Record<string, number> = {};
+        courses.forEach(c => {
+          const lvl = c.level || 'Autre';
+          levelMap[lvl] = (levelMap[lvl] || 0) + 1;
+        });
+        const coursesByLevel = Object.keys(levelMap).map(level => ({
+          level,
+          count: levelMap[level]
+        }));
+
+        // Events grouped by month (chronological)
+        const monthNames = ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin', 'Juil', 'Août', 'Sep', 'Oct', 'Nov', 'Déc'];
+        const monthMap: Record<string, number> = {};
+        events.forEach(e => {
+          if (e.date && e.date.length >= 7) {
+            const key = e.date.substring(0, 7); // YYYY-MM
+            monthMap[key] = (monthMap[key] || 0) + 1;
+          }
+        });
+        const eventsByMonth = Object.keys(monthMap).sort().map(key => {
+          const [year, month] = key.split('-');
+          return { month: `${monthNames[Number(month) - 1]} ${year}`, count: monthMap[key] };
+        });
+
+        return {
+          rolesDistribution, eventsByCategory, eventsByTeacher,
+          totalRegistrations, registrationsByStatus, coursesByLevel, eventsByMonth
+        };
       })
     );
   }

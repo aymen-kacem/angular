@@ -10,13 +10,13 @@
 .breadcrumb a {
   display: inline-flex;
   align-items: center;
-  color: #1a237e;
+  color: var(--brand);
   text-decoration: none;
   font-weight: 500;
   transition: color 0.2s;
 }
 .breadcrumb a:hover {
-  color: #3949ab;
+  color: var(--brand-light);
 }
 .breadcrumb mat-icon {
   margin-right: 8px;
@@ -25,7 +25,7 @@
   height: 20px;
 }
 .course-header {
-  background: linear-gradient(135deg, #1a237e 0%, #3949ab 100%);
+  background: var(--brand-grad);
   color: white;
   padding: 32px;
   border-radius: 12px;
@@ -94,7 +94,7 @@
 .res-title {
   font-weight: 600;
   font-size: 16px;
-  color: #1a237e;
+  color: var(--brand);
 }
 .res-type {
   color: #666;

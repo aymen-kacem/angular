@@ -4,71 +4,85 @@
     <p>Consultez et mettez à jour vos informations personnelles</p>
   </div>
 
-  <div class="profile-layout">
-    <mat-card class="profile-card">
-      <div class="avatar-header">
-        <div class="avatar-placeholder" *ngIf="!currentUser.avatarUrl">
-          {{ currentUser.fullName.charAt(0).toUpperCase() }}
-        </div>
-        <img *ngIf="currentUser.avatarUrl" [src]="currentUser.avatarUrl" alt="Avatar" class="avatar-img">
+  <!-- Hero -->
+  <div class="profile-hero">
+    <div class="hero-cover"></div>
+    <div class="hero-body">
+      <div class="avatar-placeholder" *ngIf="!currentUser.avatarUrl">
+        {{ currentUser.fullName.charAt(0).toUpperCase() }}
+      </div>
+      <img *ngIf="currentUser.avatarUrl" [src]="currentUser.avatarUrl" alt="Avatar" class="avatar-img">
+      <div class="hero-info">
         <h2 class="profile-name">{{ currentUser.fullName }}</h2>
+        <p class="profile-email">{{ currentUser.email }}</p>
         <span class="role-badge" [ngClass]="currentUser.role">{{ getRoleLabel(currentUser.role) }}</span>
       </div>
-
-      <mat-card-content class="profile-info-section">
-        <div class="info-row">
-          <mat-icon color="primary" class="info-icon">email</mat-icon>
-          <div class="info-content">
-            <span class="info-label">Adresse Email</span>
-            <span class="info-val">{{ currentUser.email }}</span>
-          </div>
-        </div>
-        <div class="info-row">
-          <mat-icon color="primary" class="info-icon">vpn_key</mat-icon>
-          <div class="info-content">
-            <span class="info-label">ID Firebase</span>
-            <span class="info-val uid-text">{{ currentUser.uid }}</span>
-          </div>
-        </div>
-      </mat-card-content>
-
-      <mat-card-actions class="profile-actions">
-        <button mat-raised-button color="primary" routerLink="/profile/edit" class="btn-edit-profile">
-          <mat-icon>edit</mat-icon> Modifier mon profil
-        </button>
-      </mat-card-actions>
-    </mat-card>
-
-    <div class="student-registrations-section" *ngIf="currentUser.role === 'student'">
-      <mat-card class="events-card">
-        <mat-card-header>
-          <mat-card-title>Mes Événements Rejoints ({{ studentRegistrations.length }})</mat-card-title>
-        </mat-card-header>
-        <mat-card-content class="events-card-content">
-          <app-loading-spinner *ngIf="loading" message="Chargement de vos inscriptions..."></app-loading-spinner>
-          
-          <div class="empty-list" *ngIf="!loading && studentRegistrations.length === 0">
-            <mat-icon class="empty-icon-box">event_note</mat-icon>
-            <p>Vous n'êtes inscrit à aucun événement pour le moment.</p>
-            <button mat-button color="primary" routerLink="/events" class="btn-browse">Parcourir les événements</button>
-          </div>
-
-          <mat-list class="registrations-list" *ngIf="!loading && studentRegistrations.length > 0">
-            <mat-list-item *ngFor="let reg of studentRegistrations" class="registration-item">
-              <div class="item-icon-cell">
-                <mat-icon color="primary" class="upcoming-item-icon">event_available</mat-icon>
-              </div>
-              <div class="item-text-cell" *ngIf="reg.event">
-                <div class="registration-title" [routerLink]="['/events', reg.eventId]">{{ reg.event.title }}</div>
-                <div class="registration-meta">Le {{ reg.event.date | date:'dd/MM/yyyy' }} - Lieu: {{ reg.event.location }}</div>
-                <div class="registration-status-row">
-                  Statut : <span class="status-badge" [ngClass]="reg.status">{{ reg.status === 'confirmed' ? 'Confirmé' : reg.status === 'pending' ? 'En attente' : 'Annulé' }}</span>
-                </div>
-              </div>
-            </mat-list-item>
-          </mat-list>
-        </mat-card-content>
-      </mat-card>
+      <button mat-raised-button color="primary" routerLink="/profile/edit" class="btn-edit-profile">
+        <mat-icon>edit</mat-icon> Modifier mon profil
+      </button>
     </div>
   </div>
+
+  <!-- Account details -->
+  <div class="info-grid">
+    <div class="info-tile">
+      <mat-icon class="info-tile-icon">badge</mat-icon>
+      <div class="info-tile-text">
+        <span class="info-tile-label">Rôle</span>
+        <span class="info-tile-value">{{ getRoleLabel(currentUser.role) }}</span>
+      </div>
+    </div>
+    <div class="info-tile">
+      <mat-icon class="info-tile-icon">email</mat-icon>
+      <div class="info-tile-text">
+        <span class="info-tile-label">Adresse Email</span>
+        <span class="info-tile-value">{{ currentUser.email }}</span>
+      </div>
+    </div>
+    <div class="info-tile">
+      <mat-icon class="info-tile-icon">verified_user</mat-icon>
+      <div class="info-tile-text">
+        <span class="info-tile-label">Statut du compte</span>
+        <span class="info-tile-value status-active">Actif</span>
+      </div>
+    </div>
+    <div class="info-tile">
+      <mat-icon class="info-tile-icon">vpn_key</mat-icon>
+      <div class="info-tile-text">
+        <span class="info-tile-label">ID Firebase</span>
+        <span class="info-tile-value uid-text">{{ currentUser.uid || 'Non lié' }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Student registrations -->
+  <mat-card class="events-card" *ngIf="currentUser.role === 'student'">
+    <mat-card-header>
+      <mat-card-title>Mes Événements Rejoints ({{ studentRegistrations.length }})</mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="events-card-content">
+      <app-loading-spinner *ngIf="loading" message="Chargement de vos inscriptions..."></app-loading-spinner>
+
+      <div class="empty-list" *ngIf="!loading && studentRegistrations.length === 0">
+        <mat-icon class="empty-icon-box">event_note</mat-icon>
+        <p>Vous n'êtes inscrit à aucun événement pour le moment.</p>
+        <button mat-button color="primary" routerLink="/events" class="btn-browse">Parcourir les événements</button>
+      </div>
+
+      <mat-list class="registrations-list" *ngIf="!loading && studentRegistrations.length > 0">
+        <mat-list-item *ngFor="let reg of studentRegistrations" class="registration-item">
+          <div class="item-icon-cell">
+            <mat-icon color="primary" class="upcoming-item-icon">event_available</mat-icon>
+          </div>
+          <div class="item-text-cell" *ngIf="reg.event">
+            <div class="registration-title" [routerLink]="['/events', reg.eventId]">{{ reg.event.title }}</div>
+            <div class="registration-meta">Le {{ reg.event.date | date:'dd/MM/yyyy' }} - Lieu: {{ reg.event.location }}</div>
+            <div class="registration-status-row">
+              Statut : <span class="status-badge" [ngClass]="reg.status">{{ reg.status === 'confirmed' ? 'Confirmé' : reg.status === 'pending' ? 'En attente' : 'Annulé' }}</span>
+            </div>
+          </div>
+        </mat-list-item>
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
 </div>
