@@ -40,12 +40,16 @@ export class RegistrationService {
     );
   }
 
-  getByEvent(eventId: number): Observable<Registration[]> {
-    return this.http.get<Registration[]>(`${this.apiUrl}?eventId=${eventId}&_expand=user`);
+  getByEvent(eventId: string | number): Observable<Registration[]> {
+    return this.http.get<Registration[]>(`${this.apiUrl}?eventId=${eventId}`).pipe(
+      switchMap(regs => this.withUsers(regs))
+    );
   }
 
-  getByUser(userId: number): Observable<Registration[]> {
-    return this.http.get<Registration[]>(`${this.apiUrl}?userId=${userId}&_expand=event`);
+  getByUser(userId: string | number): Observable<Registration[]> {
+    return this.http.get<Registration[]>(`${this.apiUrl}?userId=${userId}`).pipe(
+      switchMap(regs => this.withEvents(regs))
+    );
   }
 
   getAll(): Observable<Registration[]> {
