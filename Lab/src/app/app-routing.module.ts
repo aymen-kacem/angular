@@ -1,49 +1,74 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AccessDeniedComponent } from './features/access-denied/access-denied.component';
 import { AuthGuard } from './core/guards/auth.guard';
 import { RoleGuard } from './core/guards/role.guard';
+
+import { LoginComponent } from './features/auth/login/login.component';
+import { RegisterComponent } from './features/auth/register/register.component';
+import { DashboardComponent } from './features/dashboard/dashboard.component';
+import { EventListComponent } from './features/events/event-list/event-list.component';
+import { EventDetailComponent } from './features/events/event-detail/event-detail.component';
+import { MyEventsComponent } from './features/events/my-events/my-events.component';
+import { UserListComponent } from './features/users/user-list/user-list.component';
+import { CategoryListComponent } from './features/categories/category-list/category-list.component';
+import { CourseListComponent } from './features/courses/course-list/course-list.component';
+import { CourseFormComponent } from './features/courses/course-form/course-form.component';
+import { CourseDetailComponent } from './features/courses/course-detail/course-detail.component';
+import { ProfileViewComponent } from './features/profile/profile-view/profile-view.component';
+import { ProfileEditComponent } from './features/profile/profile-edit/profile-edit.component';
 
 const routes: Routes = [
   {
     path: 'login',
-    loadChildren: () => import('./features/auth/auth.module').then(m => m.AuthModule)
+    component: LoginComponent
+  },
+  {
+    path: 'register',
+    component: RegisterComponent
   },
   {
     path: 'dashboard',
-    loadChildren: () => import('./features/dashboard/dashboard.module').then(m => m.DashboardModule),
+    component: DashboardComponent,
     canActivate: [AuthGuard]
   },
   {
     path: 'events',
-    loadChildren: () => import('./features/events/events.module').then(m => m.EventsModule),
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
+    children: [
+      { path: '', component: EventListComponent },
+      { path: 'my-events', component: MyEventsComponent },
+      { path: ':id', component: EventDetailComponent }
+    ]
   },
   {
     path: 'users',
-    loadChildren: () => import('./features/users/users.module').then(m => m.UsersModule),
+    component: UserListComponent,
     canActivate: [AuthGuard, RoleGuard],
     data: { roles: ['admin'] }
   },
   {
     path: 'categories',
-    loadChildren: () => import('./features/categories/categories.module').then(m => m.CategoriesModule),
+    component: CategoryListComponent,
     canActivate: [AuthGuard, RoleGuard],
     data: { roles: ['admin'] }
   },
   {
     path: 'courses',
-    loadChildren: () => import('./features/courses/courses.module').then(m => m.CoursesModule),
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
+    children: [
+      { path: '', component: CourseListComponent },
+      { path: 'new', component: CourseFormComponent, data: { roles: ['admin', 'teacher'] } },
+      { path: ':id/edit', component: CourseFormComponent, data: { roles: ['admin', 'teacher'] } },
+      { path: ':id', component: CourseDetailComponent }
+    ]
   },
   {
     path: 'profile',
-    loadChildren: () => import('./features/profile/profile.module').then(m => m.ProfileModule),
-    canActivate: [AuthGuard]
-  },
-  {
-    path: '403',
-    component: AccessDeniedComponent
+    canActivate: [AuthGuard],
+    children: [
+      { path: '', component: ProfileViewComponent },
+      { path: 'edit', component: ProfileEditComponent }
+    ]
   },
   {
     path: '',
@@ -61,4 +86,3 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
-
