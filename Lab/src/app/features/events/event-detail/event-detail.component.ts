@@ -19,7 +19,7 @@ export class EventDetailComponent implements OnInit {
   currentUser: User | null = null;
   teacherName = '';
   registrations: Registration[] = [];
-  studentRegistrationId: number | null = null;
+  studentRegistrationId: string | number | null = null;
   loading = true;
 
   constructor(
@@ -33,7 +33,7 @@ export class EventDetailComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const eventId = Number(this.route.snapshot.paramMap.get('id'));
+    const eventId = this.route.snapshot.paramMap.get('id');
     if (!eventId) {
       this.toastService.showError("ID d'événement invalide.");
       this.router.navigate(['/events']);
@@ -46,7 +46,7 @@ export class EventDetailComponent implements OnInit {
     });
   }
 
-  loadEventDetails(eventId: number): void {
+  loadEventDetails(eventId: string | number): void {
     this.loading = true;
     this.eventService.getById(eventId).subscribe({
       next: (event) => {
@@ -91,7 +91,7 @@ export class EventDetailComponent implements OnInit {
   canViewParticipants(): boolean {
     if (!this.currentUser || !this.event) return false;
     if (this.currentUser.role === 'admin') return true;
-    if (this.currentUser.role === 'teacher' && this.event.teacherId === this.currentUser.id) return true;
+    if (this.currentUser.role === 'teacher' && String(this.event.teacherId) === String(this.currentUser.id)) return true;
     return false;
   }
 

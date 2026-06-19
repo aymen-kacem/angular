@@ -34,7 +34,7 @@
     <mat-card class="resources-card">
       <mat-card-header>
         <mat-card-title>Ressources Documentaires</mat-card-title>
-        <mat-card-subtitle>{{ course.resources?.length || 0 }} document(s) disponible(s)</mat-card-subtitle>
+        <mat-card-subtitle>{{ course.resources.length || 0 }} document(s) disponible(s)</mat-card-subtitle>
       </mat-card-header>
       <mat-card-content>
         <div class="empty-resources" *ngIf="!course.resources || course.resources.length === 0">

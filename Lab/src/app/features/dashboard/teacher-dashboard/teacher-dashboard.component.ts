@@ -44,7 +44,7 @@ export class TeacherDashboardComponent implements OnInit {
     });
   }
 
-  fetchStats(teacherId: number): void {
+  fetchStats(teacherId: string | number): void {
     this.loading = true;
     this.dashboardService.getTeacherStats(teacherId).subscribe({
       next: (stats) => {

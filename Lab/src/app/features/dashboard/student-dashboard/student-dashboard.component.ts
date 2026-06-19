@@ -43,9 +43,9 @@ export class StudentDashboardComponent implements OnInit {
     });
   }
 
-  fetchStats(studentId: number): void {
+  fetchStats(userId: string | number): void {
     this.loading = true;
-    this.dashboardService.getStudentStats(studentId).subscribe({
+    this.dashboardService.getStudentStats(userId).subscribe({
       next: (stats) => {
         this.registrations = stats.myRegistrations;
         this.nbMyRegistrations = stats.myRegistrations.length;

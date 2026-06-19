@@ -12,11 +12,11 @@ export class RegistrationService {
 
   constructor(private http: HttpClient) {}
 
-  getByEvent(eventId: number): Observable<Registration[]> {
+  getByEvent(eventId: string | number): Observable<Registration[]> {
     return this.http.get<Registration[]>(`${this.apiUrl}?eventId=${eventId}&_expand=user`);
   }
 
-  getByUser(userId: number): Observable<Registration[]> {
+  getByUser(userId: string | number): Observable<Registration[]> {
     return this.http.get<Registration[]>(`${this.apiUrl}?userId=${userId}&_expand=event`);
   }
 
@@ -24,7 +24,7 @@ export class RegistrationService {
     return this.http.get<Registration[]>(`${this.apiUrl}?_expand=user&_expand=event`);
   }
 
-  create(userId: number, eventId: number): Observable<Registration> {
+  create(userId: string | number, eventId: string | number): Observable<Registration> {
     const newReg: Omit<Registration, 'id'> = {
       userId,
       eventId,
@@ -34,11 +34,11 @@ export class RegistrationService {
     return this.http.post<Registration>(this.apiUrl, newReg);
   }
 
-  delete(id: number): Observable<void> {
+  delete(id: string | number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 
-  updateStatus(id: number, status: 'confirmed' | 'pending' | 'cancelled'): Observable<Registration> {
+  updateStatus(id: string | number, status: 'confirmed' | 'pending' | 'cancelled'): Observable<Registration> {
     return this.http.patch<Registration>(`${this.apiUrl}/${id}`, { status });
   }
 }

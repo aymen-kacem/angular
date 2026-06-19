@@ -20,7 +20,7 @@ export class EventListComponent implements OnInit {
   events: Event[] = [];
   filteredEvents: Event[] = [];
   currentUser: User | null = null;
-  studentRegistrations: Record<number, number> = {};
+  studentRegistrations: Record<string | number, string | number> = {};
   searchQuery = '';
   selectedCategory = '';
   categories: string[] = [];
@@ -153,7 +153,7 @@ export class EventListComponent implements OnInit {
     });
   }
 
-  deleteEvent(id: number): void {
+  deleteEvent(id: string | number): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: '400px',
       data: {
@@ -174,7 +174,7 @@ export class EventListComponent implements OnInit {
     });
   }
 
-  isRegistered(eventId: number): boolean {
+  isRegistered(eventId: string | number): boolean {
     return !!this.studentRegistrations[eventId];
   }
 
@@ -209,7 +209,7 @@ export class EventListComponent implements OnInit {
   canModify(event: Event): boolean {
     if (!this.currentUser) return false;
     if (this.currentUser.role === 'admin') return true;
-    if (this.currentUser.role === 'teacher' && event.teacherId === this.currentUser.id) return true;
+    if (this.currentUser.role === 'teacher' && String(event.teacherId) === String(this.currentUser.id)) return true;
     return false;
   }
 }

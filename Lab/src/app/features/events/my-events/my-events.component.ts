@@ -61,7 +61,7 @@ export class MyEventsComponent implements OnInit {
     }
   }
 
-  cancelRegistration(regId: number): void {
+  cancelRegistration(regId: string | number): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: '400px',
       data: {
@@ -101,7 +101,7 @@ export class MyEventsComponent implements OnInit {
     });
   }
 
-  deleteEvent(id: number): void {
+  deleteEvent(id: string | number): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: '400px',
       data: {

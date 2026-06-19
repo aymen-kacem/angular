@@ -28,7 +28,7 @@ export class ProfileViewComponent implements OnInit {
     });
   }
 
-  fetchStudentEvents(userId: number): void {
+  fetchStudentEvents(userId: string | number): void {
     this.loading = true;
     this.registrationService.getByUser(userId).subscribe({
       next: (regs) => {

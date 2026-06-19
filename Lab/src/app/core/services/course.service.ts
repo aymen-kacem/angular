@@ -10,7 +10,7 @@ import { Course } from '../models/course.model';
 export class CourseService {
   private apiUrl = `${environment.apiUrl}/courses`;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getAll(): Observable<Course[]> {
     return this.http.get<Course[]>(this.apiUrl);
@@ -21,8 +21,7 @@ export class CourseService {
   }
 
   getByTeacher(teacherId: string | number): Observable<Course[]> {
-    // Note: json-server doesn't natively filter arrays easily like this unless we use custom queries
-    // For now we fetch all and filter client side
+
     return new Observable<Course[]>(observer => {
       this.getAll().subscribe(courses => {
         observer.next(courses.filter(c => c.teacherIds.includes(teacherId) || c.teacherIds.includes(Number(teacherId))));

@@ -57,7 +57,7 @@ export class DashboardService {
           teacherEventMap[t.fullName] = 0;
         });
         events.forEach(e => {
-          const teacher = teachers.find(t => Number(t.id) === Number(e.teacherId));
+          const teacher = teachers.find(t => String(t.id) === String(e.teacherId));
           if (teacher) {
             teacherEventMap[teacher.fullName]++;
           }
@@ -72,7 +72,7 @@ export class DashboardService {
     );
   }
 
-  getTeacherStats(teacherId: number): Observable<{
+  getTeacherStats(teacherId: string | number): Observable<{
     eventsWithParticipantCount: { title: string; count: number }[];
     upcomingEvents: any[];
   }> {
@@ -96,7 +96,7 @@ export class DashboardService {
     );
   }
 
-  getStudentStats(userId: number): Observable<{
+  getStudentStats(userId: string | number): Observable<{
     myRegistrations: any[];
     registrationsByCategory: { category: string; count: number }[];
   }> {

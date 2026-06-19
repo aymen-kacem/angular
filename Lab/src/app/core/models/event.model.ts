@@ -1,5 +1,5 @@
 export interface Event {
-  id: number;
+  id: string | number;
   title: string;
   description: string;
   category: string;
@@ -9,6 +9,6 @@ export interface Event {
   location: string;
   capacity: number;
   imageUrl?: string;
-  teacherId: number;  // refers to User.id
+  teacherId: string | number;  // refers to User.id
   createdAt: string;
 }
