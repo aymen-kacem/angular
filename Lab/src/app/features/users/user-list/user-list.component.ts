@@ -19,6 +19,11 @@ export class UserListComponent implements OnInit {
   dataSource = new MatTableDataSource<User>([]);
   loading = false;
 
+  totalUsers = 0;
+  nbAdmins = 0;
+  nbTeachers = 0;
+  nbStudents = 0;
+
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
@@ -39,6 +44,10 @@ export class UserListComponent implements OnInit {
         this.dataSource.data = users;
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+        this.totalUsers = users.length;
+        this.nbAdmins = users.filter(u => u.role === 'admin').length;
+        this.nbTeachers = users.filter(u => u.role === 'teacher').length;
+        this.nbStudents = users.filter(u => u.role === 'student').length;
         this.loading = false;
       },
       error: () => (this.loading = false)

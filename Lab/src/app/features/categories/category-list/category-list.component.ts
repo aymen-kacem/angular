@@ -3,7 +3,9 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatDialog } from '@angular/material/dialog';
+import { forkJoin } from 'rxjs';
 import { CategoryService } from 'src/app/core/services/category.service';
+import { EventService } from 'src/app/core/services/event.service';
 import { ToastService } from 'src/app/core/services/toast.service';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
 import { CategoryFormComponent } from '../category-form/category-form.component';
@@ -15,15 +17,20 @@ import { Category } from 'src/app/core/models/category.model';
   styleUrls: ['./category-list.component.css']
 })
 export class CategoryListComponent implements OnInit {
-  displayedColumns: string[] = ['name', 'actions'];
+  displayedColumns: string[] = ['name', 'eventsCount', 'actions'];
   dataSource = new MatTableDataSource<Category>([]);
   loading = false;
+
+  totalEvents = 0;
+  mostUsedCategory = '—';
+  private eventCountMap: Record<string, number> = {};
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor(
     private categoryService: CategoryService,
+    private eventService: EventService,
     private toastService: ToastService,
     private dialog: MatDialog
   ) {}
@@ -32,10 +39,37 @@ export class CategoryListComponent implements OnInit {
     this.fetchCategories();
   }
 
+  get totalCategories(): number {
+    return this.dataSource.data.length;
+  }
+
+  getEventCount(name: string): number {
+    return this.eventCountMap[name] || 0;
+  }
+
   fetchCategories(): void {
     this.loading = true;
-    this.categoryService.getAll().subscribe({
-      next: (categories) => {
+    forkJoin({
+      categories: this.categoryService.getAll(),
+      events: this.eventService.getAll()
+    }).subscribe({
+      next: ({ categories, events }) => {
+        this.eventCountMap = {};
+        events.forEach(e => {
+          if (e.category) {
+            this.eventCountMap[e.category] = (this.eventCountMap[e.category] || 0) + 1;
+          }
+        });
+        this.totalEvents = events.length;
+
+        let max = -1;
+        let most = '—';
+        categories.forEach(c => {
+          const n = this.eventCountMap[c.name] || 0;
+          if (n > max) { max = n; most = c.name; }
+        });
+        this.mostUsedCategory = categories.length ? most : '—';
+
         this.dataSource.data = categories;
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;

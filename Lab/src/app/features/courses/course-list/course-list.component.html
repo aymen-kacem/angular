@@ -11,6 +11,30 @@
     </div>
   </div>
 
+  <div class="kpi-strip" *ngIf="!loading">
+    <div class="kpi-card">
+      <mat-icon class="kpi-icon">library_books</mat-icon>
+      <div class="kpi-text">
+        <span class="kpi-value">{{ totalCourses }}</span>
+        <span class="kpi-label">Cours disponibles</span>
+      </div>
+    </div>
+    <div class="kpi-card">
+      <mat-icon class="kpi-icon">description</mat-icon>
+      <div class="kpi-text">
+        <span class="kpi-value">{{ totalDocuments }}</span>
+        <span class="kpi-label">Documents partagés</span>
+      </div>
+    </div>
+    <div class="kpi-card">
+      <mat-icon class="kpi-icon">layers</mat-icon>
+      <div class="kpi-text">
+        <span class="kpi-value">{{ totalLevels }}</span>
+        <span class="kpi-label">Niveaux couverts</span>
+      </div>
+    </div>
+  </div>
+
   <div class="filter-section">
     <mat-form-field appearance="outline" class="search-field">
       <mat-label>Rechercher un cours</mat-label>

@@ -55,7 +55,7 @@ export class TeacherDashboardComponent implements OnInit {
         this.eventDatasets = [{
           label: 'Nombre de participants',
           data: stats.eventsWithParticipantCount.map(e => e.count),
-          backgroundColor: '#2e7d32'
+          backgroundColor: '#3949ab'
         }];
 
         this.loading = false;

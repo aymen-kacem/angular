@@ -20,7 +20,7 @@
   margin: 0 0 8px 0;
   font-size: 28px;
   font-weight: 700;
-  color: #1a237e;
+  color: var(--brand);
   letter-spacing: -0.5px;
 }
 
@@ -35,13 +35,13 @@
   padding: 0 20px;
   height: 44px;
   font-weight: 500;
-  background: linear-gradient(135deg, #1a237e 0%, #3949ab 100%);
+  background: var(--brand-grad);
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .btn-create:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 15px rgba(26, 35, 126, 0.3);
+  box-shadow: 0 6px 15px rgba(var(--brand-rgb), 0.3);
 }
 
 .filter-section {
@@ -79,8 +79,25 @@ table {
 }
 
 .category-name-cell {
-  font-weight: 500;
-  color: #1a237e;
+  font-weight: 600;
+  color: var(--brand);
+}
+
+.count-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--accent-soft);
+  color: var(--brand);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+.count-badge mat-icon {
+  font-size: 16px;
+  width: 16px;
+  height: 16px;
 }
 
 .table-row {

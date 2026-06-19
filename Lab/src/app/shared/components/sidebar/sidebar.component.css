@@ -11,49 +11,60 @@
   align-items: center;
   gap: 12px;
   padding: 0 24px;
-  background-color: #0f172a;
+  background-color: #161e2e;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 .header-icon {
   font-size: 28px;
   height: 28px;
   width: 28px;
-  color: #ff9800;
+  color: #ffffff;
 }
 .header-title {
   font-size: 1.2rem;
   font-weight: 700;
-  letter-spacing: 0.5px;
-  color: white;
+  letter-spacing: 0.3px;
+  color: #ffffff;
 }
 .sidebar-nav {
-  padding: 16px 8px !important;
+  padding: 16px 12px !important;
 }
 .nav-item {
   height: 48px !important;
   border-radius: 8px !important;
   margin-bottom: 4px;
-  color: #94a3b8 !important;
-  transition: all 0.2s ease;
+  /* High-contrast label on dark surface (WCAG AA): #e2e8f0 on #1e293b ≈ 12:1 */
+  color: #e2e8f0 !important;
+  font-weight: 500;
+  transition: background-color 0.18s ease, color 0.18s ease;
+}
+/* Set the label colour explicitly (Material puts its own colour on a wrapper,
+   so `inherit` would pick that up instead of the item colour) */
+.nav-item .nav-label {
+  color: #e2e8f0 !important;
+  opacity: 1 !important;
 }
 .nav-item:hover {
-  background-color: rgba(255, 255, 255, 0.05) !important;
-  color: white !important;
+  background-color: rgba(255, 255, 255, 0.08) !important;
+  color: #ffffff !important;
 }
 .nav-icon {
   margin-right: 16px !important;
-  color: #64748b;
-  transition: color 0.2s ease;
+  color: #cbd5e1;
+  transition: color 0.18s ease;
 }
 .nav-item:hover .nav-icon {
-  color: #ff9800;
+  color: #ffffff;
 }
+/* Active item: solid indigo pill with white text — unambiguous and readable */
 .active-link {
-  background-color: rgba(255, 152, 0, 0.15) !important;
-  color: #ff9800 !important;
+  background-color: #4f46e5 !important;
+  color: #ffffff !important;
   font-weight: 600 !important;
 }
-.active-link .nav-icon {
-  color: #ff9800 !important;
+.active-link .nav-icon,
+.active-link .nav-label {
+  color: #ffffff !important;
 }
 .nav-label {
   font-size: 0.95rem;

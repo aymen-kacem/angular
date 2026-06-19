@@ -10,7 +10,7 @@
     },
     {
       "id": "2",
-      "uid": "",
+      "uid": "QYGIzO6zLoZG4bNGcv1CoNRBL5k1",
       "fullName": "Karim Trabelsi",
       "email": "karim@test.com",
       "role": "teacher",
@@ -18,7 +18,7 @@
     },
     {
       "id": "3",
-      "uid": "",
+      "uid": "c3Fzk6dZuTRc1vgwCbQreEdBJnG2",
       "fullName": "Sami Gharbi",
       "email": "sami@test.com",
       "role": "student",
@@ -39,6 +39,14 @@
       "role": "student",
       "avatarUrl": "",
       "id": "X0G042qLaNU"
+    },
+    {
+      "uid": "Dua8VjFbrJX4WTJ5KHdAO5Dot4i2",
+      "fullName": "Wassim Marouani",
+      "email": "wassim@gmail.com",
+      "role": "admin",
+      "avatarUrl": "",
+      "id": "lXz0QdRSNwA"
     }
   ],
   "events": [
@@ -54,6 +62,146 @@
       "imageUrl": "",
       "teacherId": 2,
       "id": "1"
+    },
+    {
+      "title": "Atelier Python pour la Data Science",
+      "description": "Manipulez NumPy, Pandas et Matplotlib à travers des cas pratiques. Apportez votre ordinateur portable.",
+      "category": "Workshop",
+      "date": "2026-07-08",
+      "startTime": "09:00",
+      "endTime": "13:00",
+      "location": "Salle Informatique B2",
+      "capacity": 25,
+      "imageUrl": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800",
+      "teacherId": 2,
+      "createdAt": "2026-06-19T09:00:00.000Z",
+      "id": "w6eY7xJWUu0"
+    },
+    {
+      "title": "Séminaire : Introduction au Machine Learning",
+      "description": "Comprendre les fondamentaux de l'apprentissage supervisé et non supervisé, avec démonstrations en direct.",
+      "category": "Seminar",
+      "date": "2026-07-15",
+      "startTime": "14:00",
+      "endTime": "17:00",
+      "location": "Amphithéâtre A",
+      "capacity": 120,
+      "imageUrl": "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=800",
+      "teacherId": 2,
+      "createdAt": "2026-06-19T09:00:00.000Z",
+      "id": "wKJ2tlWDbAc"
+    },
+    {
+      "title": "Webinaire : Sécurité des Applications Web",
+      "description": "Top 10 OWASP, injections SQL, XSS et bonnes pratiques de protection. Session 100% en ligne.",
+      "category": "Webinar",
+      "date": "2026-07-22",
+      "startTime": "18:00",
+      "endTime": "19:30",
+      "location": "En ligne (Zoom)",
+      "capacity": 300,
+      "imageUrl": "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800",
+      "teacherId": 2,
+      "createdAt": "2026-06-19T09:00:00.000Z",
+      "id": "XDhyBWdCovU"
+    },
+    {
+      "title": "Cours intensif : Angular & TypeScript",
+      "description": "Composants, services, routing, RxJS et bonnes pratiques pour bâtir des SPA robustes.",
+      "category": "Course",
+      "date": "2026-08-03",
+      "startTime": "09:30",
+      "endTime": "16:30",
+      "location": "Salle TP C1",
+      "capacity": 30,
+      "imageUrl": "https://images.unsplash.com/photo-1547658719-da2b51169166?w=800",
+      "teacherId": 2,
+      "createdAt": "2026-06-19T09:00:00.000Z",
+      "id": "gh-pUhuoMWA"
+    },
+    {
+      "title": "Conférence : L'avenir de l'Intelligence Artificielle",
+      "description": "Tendances, IA générative et impact sur l'enseignement supérieur. Avec intervenants invités.",
+      "category": "Conference",
+      "date": "2026-09-10",
+      "startTime": "10:00",
+      "endTime": "12:30",
+      "location": "Grand Auditorium",
+      "capacity": 400,
+      "imageUrl": "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=800",
+      "teacherId": 2,
+      "createdAt": "2026-06-19T09:00:00.000Z",
+      "id": "vpOvHpqsLgM"
+    },
+    {
+      "title": "Atelier : Initiation au Cloud avec AWS",
+      "description": "Déployez votre première application sur EC2 et S3. Comptes de test fournis.",
+      "category": "Workshop",
+      "date": "2026-08-18",
+      "startTime": "13:30",
+      "endTime": "17:30",
+      "location": "Salle Informatique B3",
+      "capacity": 22,
+      "imageUrl": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800",
+      "teacherId": 2,
+      "createdAt": "2026-06-19T09:00:00.000Z",
+      "id": "LSnQtGIAz-I"
+    },
+    {
+      "title": "Séminaire : UX/UI Design Thinking",
+      "description": "Méthodologie centrée utilisateur, wireframing et prototypage rapide avec Figma.",
+      "category": "Seminar",
+      "date": "2026-08-26",
+      "startTime": "09:00",
+      "endTime": "12:00",
+      "location": "Salle Créative D2",
+      "capacity": 40,
+      "imageUrl": "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800",
+      "teacherId": 2,
+      "createdAt": "2026-06-19T09:00:00.000Z",
+      "id": "YkuVcKDFigI"
+    },
+    {
+      "title": "Webinaire : Développement Mobile Flutter",
+      "description": "Créez une application multiplateforme iOS/Android en partant de zéro.",
+      "category": "Webinar",
+      "date": "2026-09-02",
+      "startTime": "17:00",
+      "endTime": "18:30",
+      "location": "En ligne (Teams)",
+      "capacity": 250,
+      "imageUrl": "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800",
+      "teacherId": 2,
+      "createdAt": "2026-06-19T09:00:00.000Z",
+      "id": "9cmZ8iYU2XY"
+    },
+    {
+      "title": "Atelier Robotique & Arduino",
+      "description": "Programmez un robot suiveur de ligne et découvrez l'électronique embarquée.",
+      "category": "Workshop",
+      "date": "2026-09-16",
+      "startTime": "10:00",
+      "endTime": "16:00",
+      "location": "FabLab",
+      "capacity": 18,
+      "imageUrl": "https://images.unsplash.com/photo-1518770660439-4636190af475?w=800",
+      "teacherId": 2,
+      "createdAt": "2026-06-19T09:00:00.000Z",
+      "id": "dvfVdSq6OV0"
+    },
+    {
+      "title": "Conférence : Big Data & Visualisation",
+      "description": "Des pipelines de données aux tableaux de bord interactifs : panorama des outils modernes.",
+      "category": "Conference",
+      "date": "2026-10-01",
+      "startTime": "14:00",
+      "endTime": "16:30",
+      "location": "Amphithéâtre A",
+      "capacity": 200,
+      "imageUrl": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800",
+      "teacherId": 2,
+      "createdAt": "2026-06-19T09:00:00.000Z",
+      "id": "-BuQylMiGAs"
     }
   ],
   "categories": [
@@ -99,6 +247,41 @@
       "status": "confirmed",
       "registeredAt": "2026-06-18T13:01:05.130Z",
       "id": "LYxAStz8UpA"
+    },
+    {
+      "userId": 3,
+      "eventId": "w6eY7xJWUu0",
+      "status": "confirmed",
+      "registeredAt": "2026-06-10T09:00:00Z",
+      "id": "nNuryrViy5M"
+    },
+    {
+      "userId": 3,
+      "eventId": "wKJ2tlWDbAc",
+      "status": "confirmed",
+      "registeredAt": "2026-06-11T09:00:00Z",
+      "id": "FqYM1_n0sTE"
+    },
+    {
+      "userId": 3,
+      "eventId": "gh-pUhuoMWA",
+      "status": "pending",
+      "registeredAt": "2026-06-12T09:00:00Z",
+      "id": "A6s1NstIYhQ"
+    },
+    {
+      "userId": 3,
+      "eventId": "vpOvHpqsLgM",
+      "status": "confirmed",
+      "registeredAt": "2026-06-13T09:00:00Z",
+      "id": "gUAiWGiXDwQ"
+    },
+    {
+      "userId": 3,
+      "eventId": "XDhyBWdCovU",
+      "status": "confirmed",
+      "registeredAt": "2026-06-14T09:00:00Z",
+      "id": "QKLBdXc_NPA"
     }
   ],
   "courses": [
@@ -122,6 +305,263 @@
       ],
       "createdAt": "2026-06-18T13:47:27.629Z",
       "id": "xzzIikQQgMQ"
+    },
+    {
+      "title": "Algèbre Linéaire",
+      "description": "Espaces vectoriels, applications linéaires, matrices, déterminants et diagonalisation.",
+      "level": "1ère année Licence",
+      "teacherIds": [
+        "2"
+      ],
+      "createdAt": "2026-06-19T09:00:00.000Z",
+      "resources": [
+        {
+          "id": "ut9ls5r",
+          "title": "Chapitre 1 - Espaces vectoriels",
+          "type": "pdf_chapter",
+          "url": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+          "isLocalFile": false
+        },
+        {
+          "id": "846hosh",
+          "title": "Résumé du cours",
+          "type": "summary",
+          "url": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+          "isLocalFile": false
+        },
+        {
+          "id": "67zrz9f",
+          "title": "Série d'exercices 1",
+          "type": "exercise",
+          "url": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+          "isLocalFile": false
+        },
+        {
+          "id": "ottu2ao",
+          "title": "Correction série 1",
+          "type": "correction",
+          "url": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+          "isLocalFile": false
+        }
+      ],
+      "id": "ZaKnrcIdSBc"
+    },
+    {
+      "title": "Analyse Mathématique",
+      "description": "Suites, limites, continuité, dérivabilité et intégration des fonctions d'une variable réelle.",
+      "level": "1ère année Licence",
+      "teacherIds": [
+        "2"
+      ],
+      "createdAt": "2026-06-19T09:00:00.000Z",
+      "resources": [
+        {
+          "id": "r5mlaro",
+          "title": "Chapitre 1 - Suites numériques",
+          "type": "pdf_chapter",
+          "url": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+          "isLocalFile": false
+        },
+        {
+          "id": "ruqqa3l",
+          "title": "Chapitre 2 - Continuité",
+          "type": "pdf_chapter",
+          "url": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+          "isLocalFile": false
+        },
+        {
+          "id": "0orilny",
+          "title": "Exercices corrigés",
+          "type": "exercise",
+          "url": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+          "isLocalFile": false
+        }
+      ],
+      "id": "y5xpqgR_ku4"
+    },
+    {
+      "title": "Programmation Orientée Objet (Java)",
+      "description": "Classes, héritage, polymorphisme, interfaces, collections et gestion des exceptions.",
+      "level": "2ème année Licence",
+      "teacherIds": [
+        "2"
+      ],
+      "createdAt": "2026-06-19T09:00:00.000Z",
+      "resources": [
+        {
+          "id": "40ic7gp",
+          "title": "Cours complet POO",
+          "type": "pdf_chapter",
+          "url": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+          "isLocalFile": false
+        },
+        {
+          "id": "vbcdfbj",
+          "title": "TP - Gestion d'une bibliothèque",
+          "type": "exercise",
+          "url": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+          "isLocalFile": false
+        },
+        {
+          "id": "gmup3mu",
+          "title": "Correction du TP",
+          "type": "correction",
+          "url": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+          "isLocalFile": false
+        }
+      ],
+      "id": "h6UazWAVF4U"
+    },
+    {
+      "title": "Bases de Données Relationnelles",
+      "description": "Modèle entité-association, algèbre relationnelle, SQL avancé et normalisation.",
+      "level": "2ème année Licence",
+      "teacherIds": [
+        "2"
+      ],
+      "createdAt": "2026-06-19T09:00:00.000Z",
+      "resources": [
+        {
+          "id": "107m2gy",
+          "title": "Chapitre - Modèle relationnel",
+          "type": "pdf_chapter",
+          "url": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+          "isLocalFile": false
+        },
+        {
+          "id": "uffkk1q",
+          "title": "Aide-mémoire SQL",
+          "type": "summary",
+          "url": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+          "isLocalFile": false
+        },
+        {
+          "id": "lnukky4",
+          "title": "Exercices SQL",
+          "type": "exercise",
+          "url": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+          "isLocalFile": false
+        }
+      ],
+      "id": "i7hfs3K2Az8"
+    },
+    {
+      "title": "Structures de Données & Algorithmes",
+      "description": "Listes, piles, files, arbres, graphes et analyse de complexité.",
+      "level": "2ème année Licence",
+      "teacherIds": [
+        "2"
+      ],
+      "createdAt": "2026-06-19T09:00:00.000Z",
+      "resources": [
+        {
+          "id": "9issvr4",
+          "title": "Chapitre - Arbres binaires",
+          "type": "pdf_chapter",
+          "url": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+          "isLocalFile": false
+        },
+        {
+          "id": "3cpxmdo",
+          "title": "Résumé complexité",
+          "type": "summary",
+          "url": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+          "isLocalFile": false
+        }
+      ],
+      "id": "EpSRmkFEo7c"
+    },
+    {
+      "title": "Développement Web Full-Stack",
+      "description": "HTML/CSS, JavaScript moderne, Node.js, Express et frameworks front-end.",
+      "level": "3ème année Licence",
+      "teacherIds": [
+        "2"
+      ],
+      "createdAt": "2026-06-19T09:00:00.000Z",
+      "resources": [
+        {
+          "id": "ife92mg",
+          "title": "Chapitre - API REST",
+          "type": "pdf_chapter",
+          "url": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+          "isLocalFile": false
+        },
+        {
+          "id": "mvu029u",
+          "title": "Projet fil rouge",
+          "type": "exercise",
+          "url": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+          "isLocalFile": false
+        },
+        {
+          "id": "kovly5s",
+          "title": "Correction projet",
+          "type": "correction",
+          "url": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+          "isLocalFile": false
+        }
+      ],
+      "id": "mOvOQtgO02I"
+    },
+    {
+      "title": "Intelligence Artificielle",
+      "description": "Recherche heuristique, apprentissage automatique et réseaux de neurones.",
+      "level": "1ère année Master",
+      "teacherIds": [
+        "2"
+      ],
+      "createdAt": "2026-06-19T09:00:00.000Z",
+      "resources": [
+        {
+          "id": "elrme9o",
+          "title": "Chapitre - Réseaux de neurones",
+          "type": "pdf_chapter",
+          "url": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+          "isLocalFile": false
+        },
+        {
+          "id": "1ekaiad",
+          "title": "Résumé ML",
+          "type": "summary",
+          "url": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+          "isLocalFile": false
+        },
+        {
+          "id": "e1oarq7",
+          "title": "Exercices",
+          "type": "exercise",
+          "url": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+          "isLocalFile": false
+        }
+      ],
+      "id": "t31Tq5yr4dc"
+    },
+    {
+      "title": "Sécurité Informatique",
+      "description": "Cryptographie, sécurité réseau, vulnérabilités web et tests d'intrusion.",
+      "level": "2ème année Master",
+      "teacherIds": [
+        "2"
+      ],
+      "createdAt": "2026-06-19T09:00:00.000Z",
+      "resources": [
+        {
+          "id": "3kdt5h0",
+          "title": "Chapitre - Cryptographie",
+          "type": "pdf_chapter",
+          "url": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+          "isLocalFile": false
+        },
+        {
+          "id": "eku871o",
+          "title": "TP - Pentest",
+          "type": "exercise",
+          "url": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+          "isLocalFile": false
+        }
+      ],
+      "id": "FuUMFdfUa98"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

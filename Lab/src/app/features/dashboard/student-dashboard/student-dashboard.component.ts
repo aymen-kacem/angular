@@ -54,7 +54,7 @@ export class StudentDashboardComponent implements OnInit {
         this.categoryDatasets = [{
           label: "Nombre d'événements rejoints",
           data: stats.registrationsByCategory.map(c => c.count),
-          backgroundColor: '#1565c0'
+          backgroundColor: '#3949ab'
         }];
 
         this.loading = false;
